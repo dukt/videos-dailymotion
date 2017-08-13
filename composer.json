@@ -1,0 +1,44 @@
+{
+  "name": "dukt/videos-dailymotion",
+  "description": "Dailymotion integration for Videos",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "keywords": [
+    "dailymotion",
+    "videos",
+    "craftcms"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dukt",
+      "homepage": "https://dukt.net/"
+    }
+  ],
+  "support": {
+    "email": "support@dukt.net",
+    "issues": "https://github.com/dukt/videos-dailymotion/issues?state=open",
+    "source": "https://github.com/dukt/videos-dailymotion",
+    "docs": "https://github.com/dukt/videos-dailymotion",
+    "rss": "https://github.com/dukt/videos-dailymotion/commits/master.atom"
+  },
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "dukt\\videos\\dailymotion\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "extra": {
+    "name": "Dailymotion",
+    "handle": "videos-dailymotion",
+    "changelogUrl": "https://raw.githubusercontent.com/dukt/videos-dailymotion/master/CHANGELOG.md",
+    "downloadUrl": "https://github.com/dukt/videos-dailymotion/archive/master.zip"
+  }
+}
