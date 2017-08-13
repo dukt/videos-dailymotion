@@ -1,7 +1,7 @@
 Dailymotion video gateway for Videos
 =======================
 
-This plugin provides a [Dailymotion](https://dailymotion.com/) integration for [Videos](https://dukt.net/videos).
+This plugin provides a [Dailymotion](https://dailymotion.com/) integration for [Videos](https://dukt.net/videos) plugin for Craft CMS.
 
 
 ## Requirements
