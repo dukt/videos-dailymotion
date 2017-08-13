@@ -2,6 +2,7 @@
 
 namespace dukt\videos\dailymotion\gateways;
 
+use Craft;
 use dukt\videos\base\Gateway;
 use dukt\videos\models\Collection;
 use dukt\videos\models\Section;
@@ -15,6 +16,20 @@ class Dailymotion extends Gateway
 {
     // Public Methods
     // =========================================================================
+
+    /**
+     * Returns the icon URL.
+     *
+     * @return string|false|null
+     */
+    public function getIconUrl()
+    {
+        $iconAlias = '@dukt/videos/dailymotion/icon.svg';
+
+        if (file_exists(Craft::getAlias($iconAlias))) {
+            return Craft::$app->assetManager->getPublishedUrl($iconAlias, true);
+        }
+    }
 
     /**
      * @inheritDoc GatewayInterface::getName()
