@@ -211,12 +211,6 @@ class Dailymotion extends Gateway
 
             // define video id
             $videoId = $matches[$match_key][0];
-
-
-            // Fixes the youtube &feature_gdata bug
-            if (strpos($videoId, "&")) {
-                $videoId = substr($videoId, 0, strpos($videoId, "&"));
-            }
         }
 
         // here we should have a valid video_id or false if service not matching
