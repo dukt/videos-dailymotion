@@ -193,27 +193,19 @@ class Dailymotion extends Gateway
      *
      * @param $url
      *
-     * @return bool|int
+     * @return bool|string
      */
     public function extractVideoIdFromUrl($url)
     {
-        // check if url works with this service and extract video_id
-
         $videoId = false;
 
         $regexp = ['/^https?:\/\/(www\.)?dailymotion\.com\/video\/([a-z0-9]*)/', 2];
 
         if (preg_match($regexp[0], $url, $matches, PREG_OFFSET_CAPTURE) > 0) {
-
-            // regexp match key
             $match_key = $regexp[1];
-
-
-            // define video id
             $videoId = $matches[$match_key][0];
         }
 
-        // here we should have a valid video_id or false if service not matching
         return $videoId;
     }
 
