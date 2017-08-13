@@ -10,7 +10,10 @@ use dukt\videos\models\Video;
 use GuzzleHttp\Client;
 
 /**
- * Dailymotion gateway
+ * Dailymotion represents the Dailymotion gateway
+ *
+ * @author    Dukt <support@dukt.net>
+ * @since     1.0
  */
 class Dailymotion extends Gateway
 {
@@ -69,6 +72,18 @@ class Dailymotion extends Gateway
     public function getOauthProviderApiConsoleUrl()
     {
         return 'http://www.dailymotion.com/settings/developer';
+    }
+
+    /**
+     * @inheritDoc GatewayInterface::getOauthScope()
+     *
+     * @return array
+     */
+    public function getOauthScope()
+    {
+        return [
+            'email',
+        ];
     }
 
     /**
@@ -217,6 +232,23 @@ class Dailymotion extends Gateway
     // =========================================================================
 
     /**
+     * Returns an authenticated Guzzle client
+     *
+     * @return Client
+     */
+    protected function createClient()
+    {
+        $options = [
+            'base_uri' => $this->getApiUrl(),
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token->getToken()
+            ],
+        ];
+
+        return new Client($options);
+    }
+
+    /**
      * Returns a list of videos in an playlist
      *
      * @param array $params
@@ -287,42 +319,8 @@ class Dailymotion extends Gateway
         return $this->performVideosRequest('me/videos', $params);
     }
 
-    /**
-     * Returns an authenticated Guzzle client
-     *
-     * @return Client
-     */
-    protected function createClient()
-    {
-        $options = [
-            'base_uri' => $this->getApiUrl(),
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->token->getToken()
-            ],
-        ];
-
-        return new Client($options);
-    }
-
-    /**
-     * @inheritDoc GatewayInterface::getOauthScope()
-     *
-     * @return array
-     */
-    public function getOauthScope()
-    {
-        return [
-            'email',
-        ];
-    }
-
     // Private Methods
     // =========================================================================
-
-    private function getFields()
-    {
-        return 'id,title,owner,owner.screenname,owner.url,created_time,duration,description,id,views_total,title,url,private,thumbnail_url';
-    }
 
     /**
      * @return string
@@ -352,6 +350,16 @@ class Dailymotion extends Gateway
         $response = $this->apiGet('me/playlists', $query);
 
         return $this->parseCollections('playlist', $response['list']);
+    }
+
+    /**
+     * Comma separated list of video fields.
+     *
+     * @return string
+     */
+    private function getFields()
+    {
+        return 'id,title,owner,owner.screenname,owner.url,created_time,duration,description,id,views_total,title,url,private,thumbnail_url';
     }
 
     /**
@@ -489,28 +497,6 @@ class Dailymotion extends Gateway
         }
 
         $query['limit'] = $this->getVideosPerPage();
-
-/*        $query['full_response'] = 1;
-
-        if (!empty($params['moreToken'])) {
-            $query['page'] = $params['moreToken'];
-            unset($params['moreToken']);
-        } else {
-            $query['page'] = 1;
-        }
-
-        // $params['moreToken'] = $query['page'] + 1;
-
-        if (!empty($params['q'])) {
-            $query['query'] = $params['q'];
-            unset($params['q']);
-        }
-
-        $query['per_page'] = Videos::$plugin->getSettings()->videosPerPage;
-
-        if (is_array($params)) {
-            $query = array_merge($query, $params);
-        }*/
 
         return $query;
     }
