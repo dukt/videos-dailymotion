@@ -166,7 +166,7 @@ class Dailymotion extends Gateway
     public function getVideoById($id)
     {
         $query = [
-            'fields' => $this->getFields()
+            'fields' => $this->getVideoFields()
         ];
 
         $response = $this->apiGet('video/'.$id, $query);
@@ -246,7 +246,6 @@ class Dailymotion extends Gateway
         $playlistId = $params['id'];
         unset($params['id']);
 
-        $params['fields'] = $this->getFields();
 
         // playlists/#playlist_id
         return $this->performVideosRequest('playlist/'.$playlistId.'/videos', $params);
@@ -261,7 +260,6 @@ class Dailymotion extends Gateway
      */
     protected function getVideosLikes($params = [])
     {
-        $params['fields'] = $this->getFields();
         return $this->performVideosRequest('me/likes', $params);
     }
 
@@ -274,7 +272,6 @@ class Dailymotion extends Gateway
      */
     protected function getVideosHistory($params = [])
     {
-        $params['fields'] = $this->getFields();
         return $this->performVideosRequest('me/history', $params);
     }
 
@@ -287,8 +284,6 @@ class Dailymotion extends Gateway
      */
     protected function getVideosSearch($params = [])
     {
-        $params['fields'] = $this->getFields();
-
         return $this->performVideosRequest('videos', $params);
     }
 
@@ -301,7 +296,6 @@ class Dailymotion extends Gateway
      */
     protected function getVideosUploads($params = [])
     {
-        $params['fields'] = $this->getFields();
         return $this->performVideosRequest('me/videos', $params);
     }
 
@@ -332,8 +326,7 @@ class Dailymotion extends Gateway
      */
     private function getCollectionsPlaylists($params = [])
     {
-        $query = $this->queryFromParams();
-        $response = $this->apiGet('me/playlists', $query);
+        $response = $this->apiGet('me/playlists', $params);
 
         return $this->parseCollections('playlist', $response['list']);
     }
@@ -343,7 +336,7 @@ class Dailymotion extends Gateway
      *
      * @return string
      */
-    private function getFields()
+    private function getVideoFields()
     {
         return 'id,title,owner,owner.screenname,owner.url,created_time,duration,description,id,views_total,title,url,private,thumbnail_url';
     }
@@ -430,14 +423,13 @@ class Dailymotion extends Gateway
     /**
      * @param      $uri
      * @param      $params
-     * @param bool $requireAuthentication
      *
      * @return array
      * @throws \Exception
      */
-    private function performVideosRequest($uri, $params, $requireAuthentication = true)
+    private function performVideosRequest($uri, $params)
     {
-        $query = $this->queryFromParams($params);
+        $query = $this->getVideosQueryFromParams($params);
 
         $response = $this->apiGet($uri, $query);
 
@@ -463,7 +455,7 @@ class Dailymotion extends Gateway
      *
      * @return array
      */
-    private function queryFromParams($params = [])
+    private function getVideosQueryFromParams($params = [])
     {
         $query = [];
 
@@ -474,14 +466,11 @@ class Dailymotion extends Gateway
             $query['page'] = 1;
         }
 
-        if(!empty($params['fields'])) {
-            $query['fields'] = $params['fields'];
-        }
-
         if(!empty($params['q'])) {
             $query['search'] = $params['q'];
         }
 
+        $query['fields'] = $this->getVideoFields();
         $query['limit'] = $this->getVideosPerPage();
 
         return $query;
