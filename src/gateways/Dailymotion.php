@@ -209,11 +209,6 @@ class Dailymotion extends Gateway
         return $videoId;
     }
 
-    public function getSettingsTemplatePath()
-    {
-        return 'videos-dailymotion/_gateway';
-    }
-
     // Protected
     // =========================================================================
 
