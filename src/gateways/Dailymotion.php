@@ -84,11 +84,11 @@ class Dailymotion extends Gateway
     /**
      * Creates the OAuth provider.
      *
-     * @param $options
+     * @param array $options
      *
      * @return \dukt\videos\dailymotion\oauth2\client\provider\Dailymotion
      */
-    public function createOauthProvider($options)
+    public function createOauthProvider(array $options)
     {
         return new \dukt\videos\dailymotion\oauth2\client\provider\Dailymotion($options);
     }
@@ -151,22 +151,22 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @inheritDoc
+     * Returns a video from its ID.
      *
      * @param $id
      *
      * @return Video
-     * @throws \Exception
      */
     public function getVideoById($id)
     {
-        $query = [
-            'fields' => $this->getVideoFields()
-        ];
-
-        $response = $this->apiGet('video/'.$id, $query);
-
-        $data = $response;
+        $client = $this->createClient();
+        $response = $client->request('GET', 'video/'.$id, [
+            'query' => [
+                'fields' => $this->getVideoFields()
+            ]
+        ]);
+        $body = $response->getBody();
+        $data = json_decode($body, true);
 
         if ($data) {
             return $this->parseVideo($data);
@@ -208,7 +208,7 @@ class Dailymotion extends Gateway
     // =========================================================================
 
     /**
-     * Returns an authenticated Guzzle client
+     * Returns an authenticated Guzzle client.
      *
      * @return Client
      */
@@ -225,13 +225,13 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * Returns a list of videos in an playlist
+     * Returns a list of videos in an playlist.
      *
      * @param array $params
      *
      * @return array
      */
-    protected function getVideosPlaylist($params = [])
+    protected function getVideosPlaylist(array $params = [])
     {
         $playlistId = $params['id'];
         unset($params['id']);
@@ -242,49 +242,49 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * Returns a list of like videos
+     * Returns a list of like videos.
      *
      * @param array $params
      *
      * @return array
      */
-    protected function getVideosLikes($params = [])
+    protected function getVideosLikes(array $params = [])
     {
         return $this->performVideosRequest('me/likes', $params);
     }
 
     /**
-     * Returns a list of like videos
+     * Returns a list of like videos.
      *
      * @param array $params
      *
      * @return array
      */
-    protected function getVideosHistory($params = [])
+    protected function getVideosHistory(array $params = [])
     {
         return $this->performVideosRequest('me/history', $params);
     }
 
     /**
-     * Returns a list of videos from a search request
+     * Returns a list of videos from a search request.
      *
      * @param array $params
      *
      * @return array
      */
-    protected function getVideosSearch($params = [])
+    protected function getVideosSearch(array $params = [])
     {
         return $this->performVideosRequest('videos', $params);
     }
 
     /**
-     * Returns a list of uploaded videos
+     * Returns a list of uploaded videos.
      *
      * @param array $params
      *
      * @return array
      */
-    protected function getVideosUploads($params = [])
+    protected function getVideosUploads(array $params = [])
     {
         return $this->performVideosRequest('me/videos', $params);
     }
@@ -293,6 +293,8 @@ class Dailymotion extends Gateway
     // =========================================================================
 
     /**
+     * Returns Dailymotion’s API URL.
+     *
      * @return string
      */
     private function getApiUrl()
@@ -301,20 +303,31 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @param array $params
+     * Returns playlists (collections) as an array.
      *
      * @return array
-     * @throws \Exception
      */
-    private function getCollectionsPlaylists($params = [])
+    private function getCollectionsPlaylists()
     {
-        $response = $this->apiGet('me/playlists', $params);
+        $client = $this->createClient();
+        $response = $client->request('GET', 'me/playlists');
+        $body = $response->getBody();
+        $data = json_decode($body, true);
 
-        return $this->parseCollections('playlist', $response['list']);
+        $collections = [];
+
+        foreach ($data['list'] as $item) {
+            $collections[] = [
+                'id' => $item['id'],
+                'title' => $item['name'],
+            ];
+        }
+
+        return $collections;
     }
 
     /**
-     * Comma separated list of video fields.
+     * List of fields to be returned by the API when requesting videos.
      *
      * @return string
      */
@@ -324,39 +337,8 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @param $data
+     * Parses the API’s video data into a Video object.
      *
-     * @return array
-     */
-    private function parseCollectionPlaylist($data)
-    {
-        $collection = [];
-        $collection['id'] = $data['id'];
-        $collection['title'] = $data['name'];
-
-        return $collection;
-    }
-
-    /**
-     * @param $type
-     * @param $data
-     *
-     * @return array
-     */
-    private function parseCollections($type, $data)
-    {
-        $collections = [];
-
-        foreach ($data as $channel) {
-            $collection = $this->{'parseCollection'.ucwords($type)}($channel);
-
-            array_push($collections, $collection);
-        }
-
-        return $collections;
-    }
-
-    /**
      * @param $data
      *
      * @return Video
@@ -383,26 +365,8 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @param $data
+     * Request videos.
      *
-     * @return array
-     */
-    private function parseVideos($data)
-    {
-        $videos = [];
-
-        if (!empty($data)) {
-            foreach ($data as $videoData) {
-                $video = $this->parseVideo($videoData);
-
-                array_push($videos, $video);
-            }
-        }
-
-        return $videos;
-    }
-
-    /**
      * @param      $uri
      * @param      $params
      *
@@ -411,34 +375,8 @@ class Dailymotion extends Gateway
      */
     private function performVideosRequest($uri, $params)
     {
-        $query = $this->getVideosQueryFromParams($params);
+        // Query
 
-        $response = $this->apiGet($uri, $query);
-
-        $videos = $this->parseVideos($response['list']);
-
-        $more = false;
-        $moreToken = null;
-
-        if ($response['has_more']) {
-            $more = true;
-            $moreToken = $query['page'] + 1;
-        }
-
-        return [
-            'videos' => $videos,
-            'moreToken' => $moreToken,
-            'more' => $more
-        ];
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return array
-     */
-    private function getVideosQueryFromParams($params = [])
-    {
         $query = [];
 
         if (!empty($params['moreToken'])) {
@@ -455,6 +393,42 @@ class Dailymotion extends Gateway
         $query['fields'] = $this->getVideoFields();
         $query['limit'] = $this->getVideosPerPage();
 
-        return $query;
+
+        // Request
+
+        $client = $this->createClient();
+        $response = $client->request('GET', $uri, [
+            'query' => $query
+        ]);
+        $body = $response->getBody();
+        $data = json_decode($body, true);
+
+
+        // Parse response
+
+        $videos = [];
+
+        if (!empty($data['list'])) {
+            foreach  ($data['list'] as $item) {
+                $videos[] = $this->parseVideo($item);
+            }
+        }
+
+
+        // Return
+
+        $more = false;
+        $moreToken = null;
+
+        if ($data['has_more']) {
+            $more = true;
+            $moreToken = $query['page'] + 1;
+        }
+
+        return [
+            'videos' => $videos,
+            'moreToken' => $moreToken,
+            'more' => $more
+        ];
     }
 }
