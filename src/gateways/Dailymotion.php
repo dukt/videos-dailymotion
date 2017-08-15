@@ -24,7 +24,7 @@ class Dailymotion extends Gateway
      *
      * @return string
      */
-    public function getIconAlias()
+    public function getIconAlias(): string
     {
         return '@dukt/videos/dailymotion/icon.svg';
     }
@@ -34,7 +34,7 @@ class Dailymotion extends Gateway
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return "Dailymotion";
     }
@@ -44,7 +44,7 @@ class Dailymotion extends Gateway
      *
      * @return string
      */
-    public function getOauthProviderApiConsoleUrl()
+    public function getOauthProviderApiConsoleUrl(): string
     {
         return 'http://www.dailymotion.com/settings/developer';
     }
@@ -66,7 +66,7 @@ class Dailymotion extends Gateway
      *
      * @return array
      */
-    public function getExplorerSections()
+    public function getExplorerSections(): array
     {
         $sections = [];
 
@@ -121,11 +121,11 @@ class Dailymotion extends Gateway
     /**
      * Returns a video from its ID.
      *
-     * @param $id
+     * @param string $id
      *
      * @return Video
      */
-    public function getVideoById($id)
+    public function getVideoById(string $id)
     {
         $data = $this->get('video/'.$id, [
             'query' => [
@@ -143,7 +143,7 @@ class Dailymotion extends Gateway
      *
      * @return string
      */
-    public function getEmbedFormat()
+    public function getEmbedFormat(): string
     {
         return "//www.dailymotion.com/embed/video/%s";
     }
@@ -151,11 +151,11 @@ class Dailymotion extends Gateway
     /**
      * @inheritDoc
      *
-     * @param $url
+     * @param string $url
      *
      * @return bool|string
      */
-    public function extractVideoIdFromUrl($url)
+    public function extractVideoIdFromUrl(string $url)
     {
         $videoId = false;
 
