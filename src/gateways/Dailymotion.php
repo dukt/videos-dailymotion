@@ -2,7 +2,6 @@
 
 namespace dukt\videos\dailymotion\gateways;
 
-use Craft;
 use dukt\videos\base\Gateway;
 use dukt\videos\models\Collection;
 use dukt\videos\models\Section;
