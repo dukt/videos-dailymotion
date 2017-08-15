@@ -127,14 +127,11 @@ class Dailymotion extends Gateway
      */
     public function getVideoById($id)
     {
-        $client = $this->createClient();
-        $response = $client->request('GET', 'video/'.$id, [
+        $data = $this->get('video/'.$id, [
             'query' => [
                 'fields' => $this->getVideoFields()
             ]
         ]);
-        $body = $response->getBody();
-        $data = json_decode($body, true);
 
         if ($data) {
             return $this->parseVideo($data);
@@ -277,10 +274,7 @@ class Dailymotion extends Gateway
      */
     private function getCollectionsPlaylists()
     {
-        $client = $this->createClient();
-        $response = $client->request('GET', 'me/playlists');
-        $body = $response->getBody();
-        $data = json_decode($body, true);
+        $data = $this->get('me/playlists');
 
         $collections = [];
 
@@ -364,15 +358,12 @@ class Dailymotion extends Gateway
 
         // Request
 
-        $client = $this->createClient();
-        $response = $client->request('GET', $uri, [
+        $data = $this->get($uri, [
             'query' => $query
         ]);
-        $body = $response->getBody();
-        $data = json_decode($body, true);
 
 
-        // Parse response
+        // Parse data
 
         $videos = [];
 
