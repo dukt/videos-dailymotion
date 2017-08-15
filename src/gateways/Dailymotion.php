@@ -21,17 +21,13 @@ class Dailymotion extends Gateway
     // =========================================================================
 
     /**
-     * Returns the icon URL.
+     * @inheritDoc
      *
-     * @return string|false|null
+     * @return string
      */
-    public function getIconUrl()
+    public function getIconAlias()
     {
-        $iconAlias = '@dukt/videos/dailymotion/icon.svg';
-
-        if (file_exists(Craft::getAlias($iconAlias))) {
-            return Craft::$app->assetManager->getPublishedUrl($iconAlias, true);
-        }
+        return '@dukt/videos/dailymotion/icon.svg';
     }
 
     /**
