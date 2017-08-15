@@ -40,16 +40,6 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @inheritDoc
-     *
-     * @return string
-     */
-    public function getOauthProviderHandle()
-    {
-        return 'dailymotion';
-    }
-
-    /**
      * Returns the OAuth provider’s name.
      *
      * @return string
