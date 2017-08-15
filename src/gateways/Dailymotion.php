@@ -50,18 +50,6 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @inheritDoc
-     *
-     * @return array
-     */
-    public function getOauthScope()
-    {
-        return [
-            'email',
-        ];
-    }
-
-    /**
      * Creates the OAuth provider.
      *
      * @param array $options
