@@ -40,16 +40,6 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * Returns the OAuth provider’s name.
-     *
-     * @return string
-     */
-    public function getOauthProviderName()
-    {
-        return 'Dailymotion';
-    }
-
-    /**
      * Returns the OAuth provider’s API console URL.
      *
      * @return string
