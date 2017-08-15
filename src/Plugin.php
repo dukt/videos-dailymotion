@@ -8,7 +8,7 @@ class Plugin extends \craft\base\Plugin
     // =========================================================================
 
     /**
-     * Get OAuth Providers
+     * Get Videos gateways
      */
     public function getVideosGateways()
     {
