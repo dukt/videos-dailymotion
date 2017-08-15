@@ -302,14 +302,6 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * @return string
-     */
-    private function getApiVersion()
-    {
-        return '3.0';
-    }
-
-    /**
      * @param array $params
      *
      * @return array
