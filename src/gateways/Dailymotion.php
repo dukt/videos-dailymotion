@@ -3,6 +3,7 @@
 namespace dukt\videos\dailymotion\gateways;
 
 use dukt\videos\base\Gateway;
+use dukt\videos\errors\VideoNotFoundException;
 use dukt\videos\models\Collection;
 use dukt\videos\models\Section;
 use dukt\videos\models\Video;
@@ -119,11 +120,12 @@ class Dailymotion extends Gateway
     }
 
     /**
-     * Returns a video from its ID.
+     * @inheritDoc
      *
      * @param string $id
      *
      * @return Video
+     * @throws VideoNotFoundException
      */
     public function getVideoById(string $id)
     {
@@ -136,6 +138,8 @@ class Dailymotion extends Gateway
         if ($data) {
             return $this->parseVideo($data);
         }
+
+        throw new VideoNotFoundException('Video not found.');
     }
 
     /**
@@ -333,7 +337,6 @@ class Dailymotion extends Gateway
      * @param      $params
      *
      * @return array
-     * @throws \Exception
      */
     private function performVideosRequest($uri, $params)
     {
