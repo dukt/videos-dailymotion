@@ -163,7 +163,7 @@ class Dailymotion extends Gateway
     {
         $videoId = false;
 
-        $regexp = ['/^https?:\/\/(www\.)?dailymotion\.com\/video\/([a-z0-9]*)/', 2];
+        $regexp = ['/^https?:\/\/(www\.)?dailymotion\.com\/video\/([a-zA-Z0-9]*)/', 2];
 
         if (preg_match($regexp[0], $url, $matches, PREG_OFFSET_CAPTURE) > 0) {
             $match_key = $regexp[1];
