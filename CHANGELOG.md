@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.0.1 - Unreleased
+## 1.0.1 - 2017-09-24
 
 ### Added
 - The plugin now requires Videos 2.0.0-beta.5 or above.
