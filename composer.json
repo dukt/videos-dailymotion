@@ -23,7 +23,7 @@
     "rss": "https://github.com/dukt/videos-dailymotion/commits/master.atom"
   },
   "require": {
-    "dukt/videos": "^2.0"
+    "dukt/videos": "^2.0.0-beta.5"
   },
   "autoload": {
     "psr-4": {
