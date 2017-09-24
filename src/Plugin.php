@@ -1,19 +1,33 @@
 <?php
-
 namespace dukt\videos\dailymotion;
 
+use dukt\videos\services\Gateways;
+use yii\base\Event;
+
+/**
+ * Plugin represents the Dailymotion integration plugin.
+ *
+ * @author    Dukt <support@dukt.net>
+ * @since     1.0
+ */
 class Plugin extends \craft\base\Plugin
 {
     // Public Methods
     // =========================================================================
 
     /**
-     * Get Videos gateways
+     * @inheritdoc
      */
-    public function getVideosGateways()
+    public function init()
     {
-        return [
-            'dukt\videos\dailymotion\gateways\Dailymotion',
-        ];
+        parent::init();
+
+        Event::on(Gateways::class, Gateways::EVENT_REGISTER_GATEWAY_TYPES, function($event) {
+            $gatewayTypes = [
+                'dukt\videos\dailymotion\gateways\Dailymotion'
+            ];
+
+            $event->gatewayTypes = array_merge($event->gatewayTypes, $gatewayTypes);
+        });
     }
 }
