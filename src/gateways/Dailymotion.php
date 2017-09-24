@@ -196,7 +196,7 @@ class Dailymotion extends Gateway
         $options = [
             'base_uri' => $this->getApiUrl(),
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token->getToken()
+                'Authorization' => 'Bearer '.$this->getOauthToken()->getToken()
             ],
         ];
 
