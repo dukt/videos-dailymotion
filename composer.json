@@ -20,7 +20,7 @@
     "issues": "https://github.com/dukt/videos-dailymotion/issues?state=open",
     "source": "https://github.com/dukt/videos-dailymotion",
     "docs": "https://github.com/dukt/videos-dailymotion",
-    "rss": "https://github.com/dukt/videos-dailymotion/commits/master.atom"
+    "rss": "https://github.com/dukt/videos-dailymotion/commits/v1.atom"
   },
   "require": {
     "dukt/videos": "^2.0.0-beta.5"
@@ -39,7 +39,7 @@
   "extra": {
     "name": "Dailymotion",
     "handle": "videos-dailymotion",
-    "changelogUrl": "https://raw.githubusercontent.com/dukt/videos-dailymotion/master/CHANGELOG.md",
-    "downloadUrl": "https://github.com/dukt/videos-dailymotion/archive/master.zip"
+    "changelogUrl": "https://raw.githubusercontent.com/dukt/videos-dailymotion/v1/CHANGELOG.md",
+    "downloadUrl": "https://github.com/dukt/videos-dailymotion/archive/v1.zip"
   }
 }
