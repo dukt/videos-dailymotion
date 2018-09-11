@@ -1,7 +1,7 @@
 {
   "name": "dukt/videos-dailymotion",
   "description": "Dailymotion integration for Videos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "craft-plugin",
   "keywords": [
     "dailymotion",
@@ -39,7 +39,7 @@
   "extra": {
     "name": "Dailymotion",
     "handle": "videos-dailymotion",
-    "changelogUrl": "https://raw.githubusercontent.com/dukt/videos-dailymotion/v1/CHANGELOG.md",
-    "downloadUrl": "https://github.com/dukt/videos-dailymotion/archive/v1.zip"
+    "changelogUrl": "https://raw.githubusercontent.com/dukt/videos-dailymotion/master/CHANGELOG.md",
+    "downloadUrl": "https://github.com/dukt/videos-dailymotion/archive/master.zip"
   }
 }
