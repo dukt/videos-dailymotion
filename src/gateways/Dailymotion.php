@@ -126,8 +126,9 @@ class Dailymotion extends Gateway
      *
      * @return Video
      * @throws VideoNotFoundException
+     * @throws \dukt\videos\errors\ApiResponseException
      */
-    public function getVideoById(string $id)
+    public function getVideoById(string $id): Video
     {
         $data = $this->get('video/'.$id, [
             'query' => [

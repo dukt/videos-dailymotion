@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed missing return type in `\dukt\videos\dailymotion\gateways\Dailymotion::getVideoById()`.
+
 ## 1.0.1 - 2017-09-24
 
 ### Added
