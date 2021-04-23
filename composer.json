@@ -23,19 +23,13 @@
     "rss": "https://github.com/dukt/videos-dailymotion/commits/v1.atom"
   },
   "require": {
-    "dukt/videos": "^2.0.0-beta.5"
+    "dukt/videos": "^2.0.0"
   },
   "autoload": {
     "psr-4": {
       "dukt\\videos\\dailymotion\\": "src/"
     }
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ],
   "extra": {
     "name": "Dailymotion",
     "handle": "videos-dailymotion",
