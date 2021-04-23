@@ -6,7 +6,6 @@ Changelog
 ### Changed
 - The plugin’s icon has been updated.
 
-
 ## 1.0.2 - 2018-09-11
 
 ### Fixed
