@@ -1,7 +1,7 @@
 {
   "name": "dukt/videos-dailymotion",
   "description": "Dailymotion integration for Videos",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "craft-plugin",
   "keywords": [
     "dailymotion",
