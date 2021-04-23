@@ -130,7 +130,7 @@ class Dailymotion extends Gateway
      */
     public function getVideoById(string $id): Video
     {
-        $data = $this->get('video/'.$id, [
+        $data = $this->get('video/' . $id, [
             'query' => [
                 'fields' => $this->getVideoFields()
             ]
@@ -197,7 +197,7 @@ class Dailymotion extends Gateway
         $options = [
             'base_uri' => $this->getApiUrl(),
             'headers' => [
-                'Authorization' => 'Bearer '.$this->getOauthToken()->getToken()
+                'Authorization' => 'Bearer ' . $this->getOauthToken()->getToken()
             ],
         ];
 
@@ -218,7 +218,7 @@ class Dailymotion extends Gateway
 
 
         // playlists/#playlist_id
-        return $this->performVideosRequest('playlist/'.$playlistId.'/videos', $params);
+        return $this->performVideosRequest('playlist/' . $playlistId . '/videos', $params);
     }
 
     /**
@@ -362,7 +362,7 @@ class Dailymotion extends Gateway
             $query['page'] = 1;
         }
 
-        if(!empty($params['q'])) {
+        if (!empty($params['q'])) {
             $query['search'] = $params['q'];
         }
 
@@ -382,7 +382,7 @@ class Dailymotion extends Gateway
         $videos = [];
 
         if (!empty($data['list'])) {
-            foreach  ($data['list'] as $item) {
+            foreach ($data['list'] as $item) {
                 $videos[] = $this->parseVideo($item);
             }
         }

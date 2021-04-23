@@ -6,7 +6,7 @@ This plugin provides a [Dailymotion](https://dailymotion.com/) integration for [
 
 ## Requirements
 
-This plugin requires Videos 2.0.0-beta.1 or later.
+This plugin requires Videos 2.0.0 or later.
 
 
 ## Installation
