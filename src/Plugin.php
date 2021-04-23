@@ -1,4 +1,5 @@
 <?php
+
 namespace dukt\videos\dailymotion;
 
 use dukt\videos\services\Gateways;
