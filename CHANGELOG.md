@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 1.0.4 - 2021-04-23
 
 ### Changed
 - Updated the plugin’s icon again.
