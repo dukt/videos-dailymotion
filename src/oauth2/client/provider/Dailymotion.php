@@ -27,6 +27,9 @@ class Dailymotion extends AbstractProvider
         return 'https://api.dailymotion.com/me/?fields=id,screenname,email';
     }
 
+    /**
+     * @return string[]
+     */
     protected function getDefaultScopes()
     {
         return [

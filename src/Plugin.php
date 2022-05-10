@@ -23,7 +23,7 @@ class Plugin extends \craft\base\Plugin
     {
         parent::init();
 
-        Event::on(Gateways::class, Gateways::EVENT_REGISTER_GATEWAY_TYPES, function($event) {
+        Event::on(Gateways::class, Gateways::EVENT_REGISTER_GATEWAY_TYPES, function($event): void {
             $gatewayTypes = [
                 \dukt\videos\dailymotion\gateways\Dailymotion::class
             ];
