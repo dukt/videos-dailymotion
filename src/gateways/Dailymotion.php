@@ -332,7 +332,7 @@ class Dailymotion extends Gateway
         $video->gatewayHandle = "dailymotion";
         $video->gatewayName = "DailyMotion";
         $video->id = $data['id'];
-        $video->plays = (isset($data['views_total']) ? $data['views_total'] : 0);
+        $video->plays = ($data['views_total'] ?? 0);
         $video->title = $data['title'];
         $video->url = $data['url'];
         $video->private = $data['private'];

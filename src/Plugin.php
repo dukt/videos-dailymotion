@@ -25,7 +25,7 @@ class Plugin extends \craft\base\Plugin
 
         Event::on(Gateways::class, Gateways::EVENT_REGISTER_GATEWAY_TYPES, function($event) {
             $gatewayTypes = [
-                'dukt\videos\dailymotion\gateways\Dailymotion'
+                \dukt\videos\dailymotion\gateways\Dailymotion::class
             ];
 
             $event->gatewayTypes = array_merge($event->gatewayTypes, $gatewayTypes);
