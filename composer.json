@@ -23,7 +23,7 @@
     "rss": "https://github.com/dukt/videos-dailymotion/commits/v1.atom"
   },
   "require": {
-    "dukt/videos": "^2.0.0"
+    "dukt/videos": "^3.0.0"
   },
   "autoload": {
     "psr-4": {
