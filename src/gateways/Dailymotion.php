@@ -108,7 +108,7 @@ class Dailymotion extends Gateway
                 ]);
             }
 
-            if (count($collections) > 0) {
+            if ($collections !== []) {
                 $sections[] = new Section([
                     'name' => "Playlists",
                     'collections' => $collections,
